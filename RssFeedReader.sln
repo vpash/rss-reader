@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RssDb", "RssDb\RssDb.csproj", "{B156710C-20FD-4F45-9698-4DF32345CC27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RssConsoleApp", "RssConsoleApp\RssConsoleApp.csproj", "{E1CBD374-ADD9-4AB0-896B-17DDF06FC542}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RssWebApp", "RssWebApp\RssWebApp.csproj", "{47D4A6C2-FF32-4B87-9AA2-B1CE5175C3CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,19 @@ Global
 		{B156710C-20FD-4F45-9698-4DF32345CC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B156710C-20FD-4F45-9698-4DF32345CC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B156710C-20FD-4F45-9698-4DF32345CC27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1CBD374-ADD9-4AB0-896B-17DDF06FC542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1CBD374-ADD9-4AB0-896B-17DDF06FC542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1CBD374-ADD9-4AB0-896B-17DDF06FC542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1CBD374-ADD9-4AB0-896B-17DDF06FC542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D4A6C2-FF32-4B87-9AA2-B1CE5175C3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D4A6C2-FF32-4B87-9AA2-B1CE5175C3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D4A6C2-FF32-4B87-9AA2-B1CE5175C3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D4A6C2-FF32-4B87-9AA2-B1CE5175C3CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D04965F3-5A54-4FCF-AA07-F2A22CC57529}
 	EndGlobalSection
 EndGlobal

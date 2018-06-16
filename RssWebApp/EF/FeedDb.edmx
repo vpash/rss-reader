@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище RssFeedModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FeedItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FeedProvider_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="FeedProviders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id">
+          <End Role="FeedProviders" Type="Self.FeedProviders" Multiplicity="0..1" />
+          <End Role="FeedItems" Type="Self.FeedItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FeedItems">
+              <PropertyRef Name="FeedProvider_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RssFeedModelContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedItems" EntityType="Self.FeedItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedProviders" EntityType="Self.FeedProviders" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id" Association="Self.FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id">
+            <End Role="FeedProviders" EntitySet="FeedProviders" />
+            <End Role="FeedItems" EntitySet="FeedItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RssFeedModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FeedItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FeedProvider_Id" Type="Int32" />
+          <NavigationProperty Name="FeedProvider" Relationship="Self.FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id" FromRole="FeedItems" ToRole="FeedProviders" />
+        </EntityType>
+        <EntityType Name="FeedProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FeedItems" Relationship="Self.FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id" FromRole="FeedProviders" ToRole="FeedItems" />
+        </EntityType>
+        <Association Name="FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id">
+          <End Role="FeedProviders" Type="Self.FeedProvider" Multiplicity="0..1" />
+          <End Role="FeedItems" Type="Self.FeedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeedProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FeedItems">
+              <PropertyRef Name="FeedProvider_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RssFeedEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="FeedItems" EntityType="Self.FeedItem" />
+          <EntitySet Name="FeedProviders" EntityType="Self.FeedProvider" />
+          <AssociationSet Name="FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id" Association="Self.FK_dbo_FeedItems_dbo_FeedProviders_FeedProvider_Id">
+            <End Role="FeedProviders" EntitySet="FeedProviders" />
+            <End Role="FeedItems" EntitySet="FeedItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RssFeedModelContainer" CdmEntityContainer="RssFeedEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="RssFeedModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedItems">
+            <EntityTypeMapping TypeName="RssFeedModel.FeedItem">
+              <MappingFragment StoreEntitySet="FeedItems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="FeedProvider_Id" ColumnName="FeedProvider_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedProviders">
+            <EntityTypeMapping TypeName="RssFeedModel.FeedProvider">
+              <MappingFragment StoreEntitySet="FeedProviders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,49 @@
+﻿@model RssWebApp.Models.IndexModel
+
+<div class="col-md-12">
+    <p>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                if (i == Model.CurrentPage)
+                {
+                <a class="btn btn-warning" href="@Url.Action("Index", "Home", new { page = i, providerId = Model.ProviderId, order = Model.Order } )">@i</a>
+            }
+            else
+            {
+                <a class="btn btn-default" href="@Url.Action("Index", "Home", new { page = i, providerId = Model.ProviderId, order = Model.Order } )">@i</a>
+            }
+        }
+    </p>
+</div>
+
+<div class="col-md-12">
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+            @foreach (var i in Model.Items)
+            {
+                <tr>
+                    <td>@i.Provider</td>
+                    <td>@i.Title</td>
+                    <td>@i.Body</td>
+                    <td>@i.PubDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12">
+    <p>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                if (i == Model.CurrentPage)
+                {
+                <a class="btn btn-warning" href="@Url.Action("Index", "Home", new { page = i, providerId = Model.ProviderId, order = Model.Order } )">@i</a>
+            }
+            else
+            {
+                <a class="btn btn-default" href="@Url.Action("Index", "Home", new { page = i, providerId = Model.ProviderId, order = Model.Order } )">@i</a>
+            }
+        }
+    </p>
+</div>

@@ -1,0 +1,72 @@
+﻿@model RssWebApp.Models.IndexModel
+@{
+    ViewBag.Title = "IndexAjax";
+}
+
+@section scripts 
+{
+    <script>
+        $("#actionButton").on('click', function ()
+        {
+            var formData = new FormData();
+
+            formData.append('page', $("#page").val());
+            formData.append('order', $('input[name=order]:checked').val());
+            formData.append('providerId', $("#providerId").val());
+
+            $.ajax({
+                url: '/Home/Table',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (responce)
+                {
+                    $("#tableBody").html(responce);
+                },
+                error: function ()
+                {
+                    alert("error");
+                }
+            });
+        });
+    </script>
+}
+
+<div class="jumbotron">
+    <h3>Новостная лента</h3>
+    <input type="hidden" id="page" name="page" value="@Model.CurrentPage" />
+    <select id="providerId" name="providerId" class="form-control">
+        <option>Все</option>
+        @foreach (var p in Model.Providers)
+            {
+                if (Model.ProviderId == p.Id)
+                {
+                <option value="@p.Id" selected="selected">@p.Title</option>
+            }
+            else
+            {
+                <option value="@p.Id">@p.Title</option>
+            }
+        }
+    </select>
+    <div class="input-group">
+        @foreach (var o in Model.OrderDict)
+        {
+            if (o.Key == Model.Order)
+            {
+                <input type="radio" id="order-@o.Key" name="order" value="@o.Key" title="@o.Value" checked="checked">
+            }
+            else
+            {
+                <input type="radio" id="order-@o.Key" name="order" value="@o.Key" title="@o.Value">
+            }
+            <label class="label label-info" for="order-@o.Key">@o.Value</label>
+        }
+    </div>
+    <button id="actionButton" class="btn btn-success">Посмотреть</button>
+</div>
+
+<div class="row" id="tableBody">
+    @Html.Partial("_Table", Model)
+</div>

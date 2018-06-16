@@ -1,0 +1,45 @@
+﻿@model RssWebApp.Models.IndexModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h3>Новостная лента</h3>
+    @using (Html.BeginForm("Index", "Home", null, FormMethod.Post))
+    {
+        <input type="hidden" name="page" value="@Model.CurrentPage" />
+        <select id="providerId" name="providerId" class="form-control">
+            <option>Все</option>
+            @foreach (var p in Model.Providers)
+            {
+                if (Model.ProviderId == p.Id)
+                {
+                    <option value="@p.Id" selected="selected">@p.Title</option>
+                }
+                else
+                {
+                    <option value="@p.Id">@p.Title</option>
+                }
+            }
+        </select>
+        <div class="input-group">
+            @foreach (var o in Model.OrderDict)
+            {
+                if (o.Key == Model.Order)
+                {
+                    <input type="radio" id="order-@o.Key" name="order" value="@o.Key" title="@o.Value" checked="checked">
+                }
+                else
+                {
+                    <input type="radio" id="order-@o.Key" name="order" value="@o.Key" title="@o.Value">
+                }
+                <label class="label label-info" for="order-@o.Key">@o.Value</label>
+            }
+        </div>
+        <button type="submit" class="btn btn-success">Посмотреть</button>
+    }
+</div>
+
+<div class="row">
+    @Html.Partial("_Table", Model)
+</div>
